@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  database_project:
+    container_name: project_database_container
+    image: postgres:15
+    hostname: ${DB_HOST}
+    command: -p ${DB_PORT}
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    networks:
+      - main_network
+    expose:
+      - ${DB_PORT}
+    ports:
+      - ${DB_PORT}:${DB_PORT}
+    volumes:
+      - ./data/project/postgres:/var/lib/postgresql/data
+
+networks:
+  main_network:

@@ -31,4 +31,15 @@ EMAIL_USE_TLS=True
 DEFAULT_FROM_EMAIL=myproject <myemail@example.com>
 ```
 
-Replace the placeholders with actual values. Run `source .env` to load environment variables before running the app. Now values can be accessed via `os.environ.get("KEY")`.
+Replace the placeholders with actual values. Run `source .env` to load environment variables before running the app.
+Now values can be accessed via `os.environ.get("KEY")`.
+
+
+## Docker Compose
+Exposing Database Port Externally
+I have temporarily exposed the database container port externally for testing purposes only,
+to allow managing data directly from inside the container without requiring a local service installation.
+
+However, this is generally not recommended and in a production environment,
+it is better to have the database inaccessible from outside without external access. Security best practices should be
+followed for any applications used in production.

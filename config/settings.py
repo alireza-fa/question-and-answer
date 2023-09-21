@@ -108,7 +108,7 @@ if DEBUG:
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST_DEBUG'),
-            'PORT': os.getenv('PORT')
+            'PORT': os.getenv('DB_PORT')
         }
     }
 else:
@@ -119,7 +119,7 @@ else:
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST'),
-            'PORT': os.getenv('PORT')
+            'PORT': os.getenv('DB_PORT')
         }
     }
 
@@ -176,17 +176,12 @@ EMAIL_HOST = os.getenv('EMAIL_HOST')
 EMAIL_PORT = os.getenv('EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 
 # CORS
 # CORS_ALLOWED_ORIGINS = [
-#     "https://dota2.plus",
-#     "https://www.dota2.plus",
-#     "http://localhost:8080",
-#     "http://localhost:5173",
-#     "http://127.0.0.1:9000",
 # ]
 
 CORS_ALLOW_METHODS = (
