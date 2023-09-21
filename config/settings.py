@@ -207,3 +207,11 @@ CORS_ALLOW_HEADERS = (
     "X-Forwarded-For",
     "X-Forwarded-Host",
 )
+
+
+if DEBUG:
+    RABBITMQ_CONNECTION = (f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@"
+                           f"{os.getenv('RABBITMQ_HOST_DEBUG')}:{os.getenv('RABBITMQ_PORT')}")
+else:
+    RABBITMQ_CONNECTION = (f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@"
+                           f"{os.getenv('RABBITMQ_HOST')}:{os.getenv('RABBITMQ_PORT')}")
