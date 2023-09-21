@@ -27,7 +27,7 @@ EMAIL_HOST=smtp.example.com
 EMAIL_PASSWORD=mypassword
 EMAIL_USER=myemail@example.com
 EMAIL_PORT=587  
-EMAIL_USE_TLS=True
+EMAIL_USE_SSL=True
 DEFAULT_FROM_EMAIL=myproject <myemail@example.com>
 ```
 
