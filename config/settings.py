@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Local Apps
     'accounts.apps.AccountsConfig',
+    'jwt_authenticate.apps.JwtAuthenticateConfig',
     # Third Party Apps
 ]
 
