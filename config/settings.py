@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'jwt_authenticate.apps.JwtAuthenticateConfig',
     # Third Party Apps
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -216,3 +217,22 @@ if DEBUG:
 else:
     RABBITMQ_CONNECTION = (f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@"
                            f"{os.getenv('RABBITMQ_HOST')}:{os.getenv('RABBITMQ_PORT')}")
+
+
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+
+# Spectacular Settings
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Question And Answer',
+    'DESCRIPTION': 'Q&A Platform',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
