@@ -32,6 +32,7 @@ Note
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -236,3 +237,18 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+
+# Simple Jwt
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=90),
+    "UPDATE_LAST_LOGIN": True,
+
+    "ALGORITHM": "HS256",
+
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+}
+
+JWT_KEY = b'@\x18L\x81X\x08\x8a\xa8\xcd\x84\xcfN\xe9\xb3\x8c\x99\xaeN\x115\x11\x8a\x18\x96\xb6\xb2\xcd\x8d\xa5\\|r'
