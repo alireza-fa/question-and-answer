@@ -26,7 +26,7 @@ services:
     networks:
       - main_network
     ports:
-      - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
+      - ${RABBITMQ_PORT}:5672
     restart: always
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
