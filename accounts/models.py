@@ -11,7 +11,6 @@ from accounts.managers import UserManager
 class User(AbstractBaseUser, PermissionsMixin):
     username_validator = UnicodeUsernameValidator()
 
-    uuid_field = models.UUIDField(default=uuid.uuid4, verbose_name=_('uuid field'))
     username = models.CharField(
         max_length=64,
         unique=True,

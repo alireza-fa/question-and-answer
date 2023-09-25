@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from jwt_authenticate.models import UserLogin
+
+
+@admin.register(UserLogin)
+class UserLoginAdmin(admin.ModelAdmin):
+    pass

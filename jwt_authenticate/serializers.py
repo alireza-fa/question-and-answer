@@ -7,8 +7,8 @@ class JwtLoginSerializer(serializers.Serializer):
 
 
 class JwtRefreshSerializer(serializers.Serializer):
-    pass
+    refresh_token = serializers.CharField(max_length=1050)
 
 
 class JwtVerifySerializer(serializers.Serializer):
-    pass
+    token = serializers.CharField(max_length=1050)
