@@ -220,7 +220,6 @@ else:
     RABBITMQ_CONNECTION = (f"amqp://{os.getenv('RABBITMQ_USER')}:{os.getenv('RABBITMQ_PASS')}@"
                            f"{os.getenv('RABBITMQ_HOST')}:{os.getenv('RABBITMQ_PORT')}")
 
-
 # DRF
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (

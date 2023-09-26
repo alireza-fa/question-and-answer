@@ -32,6 +32,26 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
 
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: django_project_celery_worker
+    command: "celery -A config worker -l INFO"
+    volumes:
+      - .:/qanda_container
+    depends_on:
+      - qanda
+      - rabbitmq_project
+      - database_project
+    environment:
+      - BROKER_URL=${RABBITMQ_CONNECTION}
+      - RESULT_BACKEND=rpc://
+      - C_FORCE_ROOT=true
+    networks:
+      - main_network
+    restart: always
+
   qanda:
     build: .
     hostname: qanda
