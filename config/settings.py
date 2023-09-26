@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     # Local Apps
     'accounts.apps.AccountsConfig',
     'jwt_authenticate.apps.JwtAuthenticateConfig',
+    'qanda.apps.QandaConfig',
     # Third Party Apps
     'rest_framework',
     'drf_spectacular',

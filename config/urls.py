@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/', include(([
         path('accounts/', include('accounts.urls')),
         path('jwt/', include('jwt_authenticate.urls')),
+        path('qanda/', include('qanda.urls')),
     ]))),
 ] + docs_urls
 

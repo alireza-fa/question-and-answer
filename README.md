@@ -29,6 +29,14 @@ EMAIL_USER=myemail@example.com
 EMAIL_PORT=587  
 EMAIL_USE_SSL=True
 DEFAULT_FROM_EMAIL=myproject <myemail@example.com>
+
+RABBITMQ_HOST=rabbit_host
+RABBITMQ_HOST_DEBUG=localhost  # If Test in Docker and DEBUG = True replace with rabbitmq_host
+RABBITMQ_USER=rabbit_user
+RABBITMQ_PASS=rabbit_pass
+RABBITMQ_PORT=5672
+RABBITMQ_PORT_DEBUG=5677
+RABBITMQ_CONNECTION=amqp://rabbit_user:rabbit_pass@rabbit_host:rabbit_port
 ```
 
 Replace the placeholders with actual values. Run `source .env` to load environment variables before running the app.
