@@ -69,6 +69,8 @@ INSTALLED_APPS = [
     # Third Party Apps
     'rest_framework',
     'drf_spectacular',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -253,3 +255,38 @@ SIMPLE_JWT = {
 }
 
 JWT_KEY = b'@\x18L\x81X\x08\x8a\xa8\xcd\x84\xcfN\xe9\xb3\x8c\x99\xaeN\x115\x11\x8a\x18\x96\xb6\xb2\xcd\x8d\xa5\\|r'
+
+
+# CKEDITOR
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_UPLOAD_PATH = "media/ckeditor/uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.methods.get_filename'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar_Full': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['NumberedList', 'BulletedList'],
+            ['Indent', 'Outdent'],
+            ['Maximize'],
+        ],
+        'extraPlugins': 'justify,liststyle,indent',
+    },
+}
+
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+CKEDITOR_RESTRICT_BY_USER = True
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_RESTRICT_BY_DATE = True
+
+
+# Authenticate backend
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.authenticate.UserEmailAuthBackend',
+]
