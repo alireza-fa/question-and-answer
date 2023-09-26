@@ -32,5 +32,49 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
 
+  qanda:
+    build: .
+    hostname: qanda
+    container_name: qanda_container
+    restart: on-failure
+    command: sh -c "python3 manage.py makemigrations &&
+                    python3 manage.py migrate --no-input &&
+                    python3 manage.py collectstatic --no-input &&
+                    gunicorn -k gevent --chdir config config.wsgi:application -b 0.0.0.0:8000"
+    depends_on:
+      - database_project
+    expose:
+      - "8000"
+    networks:
+      - main_network
+    volumes:
+      - .:/qanda/
+      - ./static:/qanda/static
+      - ./media:/qanda/media
+
+  nginx_project:
+    image: nginx:latest
+    hostname: nginx_project
+    container_name: nginx_project_container
+    command: nginx -g 'daemon off;'
+    restart: on-failure
+    depends_on:
+      - qanda
+    networks:
+      - main_network
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./static:/qanda/static
+      - ./media:/qanda/media
+
 networks:
   main_network:
+
+
+volumes:
+  static:
+  data:

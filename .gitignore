@@ -283,3 +283,5 @@ pyrightconfig.json
 /.idea
 
 /data
+
+/static

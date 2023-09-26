@@ -52,4 +52,7 @@ class UserVerifyAccountSerializer(serializers.Serializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
-    pass
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'first_name', 'last_name')

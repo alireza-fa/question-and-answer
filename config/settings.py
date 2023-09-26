@@ -47,9 +47,9 @@ DEBUG = os.getenv('DEBUG') == 'True'
 if DEBUG:
     ALLOWED_HOSTS = ["*"]
 else:
-    ALLOWED_HOSTS = [os.getenv('WEB_DOMAIN'), f'www.{os.getenv("WEB_DOMAIN")}']
+    ALLOWED_HOSTS = [os.getenv('WEB_DOMAIN'), f'www.{os.getenv("WEB_DOMAIN")}', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("WEB_DOMAIN")}', f'https://www.{os.getenv("WEB_DOMAIN")}']
+CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("WEB_DOMAIN")}', f'https://www.{os.getenv("WEB_DOMAIN")}', 'http://localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True  # Set Front-end Domain
 
@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'jwt_authenticate.apps.JwtAuthenticateConfig',
     # Third Party Apps
+    'rest_framework',
     'drf_spectacular',
 ]
 
@@ -161,7 +162,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_URL = '/media/'

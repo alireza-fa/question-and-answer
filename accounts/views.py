@@ -33,4 +33,5 @@ class UserProfileView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        pass
+        serializer = self.serializer_class(instance=request.user)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
