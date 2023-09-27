@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 from utils.cache import set_cache, get_cache
 from accounts.tasks import send_otp_code
+from accounts.models import UserFollow
 
 
 User = get_user_model()
@@ -38,3 +39,21 @@ def create_user_from_cache(code: str) -> User | None:
         email=cache_info['email'],
         password=cache_info['password'],
     )
+
+
+def get_user_by_username(username: str) -> User | None:
+    user = User.objects.filter(username=username)
+    if user.exists():
+        return user.first()
+    return None
+
+
+def user_follow(follower: User, following: User) -> None:
+    if not follower.followings.filter(following__id=following.id):
+        return UserFollow.objects.create(follower=follower, following=following)
+
+
+def user_unfollow(follower: User, following: User) -> None:
+    user_follow_row = follower.followings.filter(following__id=following.id)
+    if user_follow_row.exists():
+        user_follow_row.delete()

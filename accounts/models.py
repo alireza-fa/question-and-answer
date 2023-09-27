@@ -47,3 +47,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_fullname(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class UserFollow(models.Model):
+    follower = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='followings', verbose_name=_('follower'))
+    following = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='followers', verbose_name=_('following'))
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('User Follow')
+        verbose_name_plural = _('User Follows')
+
+    def __str__(self):
+        return f'{self.follower} --> {self.following}'
