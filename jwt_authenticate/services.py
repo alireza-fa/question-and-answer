@@ -135,6 +135,18 @@ def set_access_token(refresh_token: str) -> str | None:
     return encrypt_token(token=access)
 
 
+def verify_user_token(user_log: UserLogin, r_client_info: Dict) -> bool:
+    if user_log.device != r_client_info['device_name'] or user_log.ip_address != r_client_info['ip_address']:
+        return False
+    return True
+
+
+def verify_token(token: Token, r_client_info: Dict) -> bool:
+    if token['device_name'] != r_client_info['device_name'] or token['ip_address'] != r_client_info['ip_address']:
+        return False
+    return True
+
+
 def get_access_token(refresh_token: ByteString, request) -> str | None:
     r_client_info = get_client_info(request)
 
@@ -146,7 +158,7 @@ def get_access_token(refresh_token: ByteString, request) -> str | None:
     if user_log is None:
         return None
 
-    if user_log.device != r_client_info['device_name'] or user_log.ip_address != r_client_info['ip_address']:
+    if verify_user_token(user_log=user_log, r_client_info=r_client_info) is False:
         return None
 
     return set_access_token(refresh_token=refresh_token_decrypt)
@@ -167,7 +179,7 @@ def check_validate_token(encrypted_token: ByteString, request) -> bool:
     if token['exp'] <= timezone.now().timestamp():
         return False
 
-    if token['device_name'] != r_client_info['device_name'] or token['ip_address'] != r_client_info['ip_address']:
+    if verify_token(token=token, r_client_info=r_client_info) is False:
         return False
 
     if token['token_type'] == 'refresh':
