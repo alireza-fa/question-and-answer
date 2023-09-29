@@ -25,6 +25,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=120, unique=True, verbose_name=_('email'), db_index=True)
     first_name = models.CharField(max_length=34, null=True, blank=True, verbose_name=_('first name'))
     last_name = models.CharField(max_length=34, null=True, blank=True, verbose_name=_('last name'))
+    avatar_image = models.ImageField(upload_to='avatar/images/', verbose_name=_('avatar image'))
     is_active = models.BooleanField(default=True, verbose_name=_('is active'))
     is_admin = models.BooleanField(default=False, verbose_name=_('is admin'))
     created = models.DateTimeField(auto_now_add=True)
@@ -47,6 +48,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def get_fullname(self):
         return f'{self.first_name} {self.last_name}'
+
+
+class UserContact(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='contacts', verbose_name=_('user'))
+    name = models.CharField(max_length=34, verbose_name=_('name'))
+    link = models.CharField(max_length=120, verbose_name=_('link'))
+
+    class Meta:
+        verbose_name = _('User Contact')
+        verbose_name_plural = _('User Contacts')
+
+    def __str__(self):
+        return f'{self.user} - {self.name}'
 
 
 class UserFollow(models.Model):

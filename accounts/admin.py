@@ -1,8 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from accounts.models import User, UserFollow
+from accounts.models import User, UserFollow, UserContact
 from accounts.forms import UserCreationForm, UserChangeForm
+
+
+class UserContactInline(admin.TabularInline):
+    model = UserContact
 
 
 class UserAdmin(BaseUserAdmin):
@@ -12,10 +16,11 @@ class UserAdmin(BaseUserAdmin):
     list_display = ('username', 'email', 'is_active', 'is_admin', 'user_followers', 'user_followings')
     list_filter = ('is_active', 'is_admin')
     readonly_fields = ('last_login',)
+    inlines = (UserContactInline,)
 
     fieldsets = (
         (None, {
-            "fields": ('username', 'email', 'password', 'first_name', 'last_name'),
+            "fields": ('username', 'email', 'password', 'first_name', 'last_name', 'avatar_image'),
         }),
         ('permissions', {
             "fields": ('is_active', 'is_admin', 'is_superuser', 'last_login', 'groups', 'user_permissions')

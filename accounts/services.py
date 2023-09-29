@@ -1,10 +1,11 @@
 from random import randint
+from typing import List
 
 from django.contrib.auth import get_user_model
 
 from utils.cache import set_cache, get_cache
 from accounts.tasks import send_otp_code
-from accounts.models import UserFollow
+from accounts.models import UserFollow, UserContact
 
 
 User = get_user_model()
@@ -57,3 +58,21 @@ def user_unfollow(follower: User, following: User) -> None:
     user_follow_row = follower.followings.filter(following__id=following.id)
     if user_follow_row.exists():
         user_follow_row.delete()
+
+
+def get_followers(user: User) -> List[UserFollow]:
+    return user.followers.all()
+
+
+def get_followings(user: User) -> List[UserFollow]:
+    return user.followings.all()
+
+
+def user_contact_create(user: User, name: str, link: str) -> UserContact:
+    return UserContact.objects.create(user=user, name=name, link=link)
+
+
+def get_user_contact(contact_id: int, user: User) -> UserContact | None:
+    contacts = UserContact.objects.filter(pk=contact_id, user=user)
+    if contacts.exists():
+        return contacts.first()

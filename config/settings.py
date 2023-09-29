@@ -49,7 +49,12 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = [os.getenv('WEB_DOMAIN'), f'www.{os.getenv("WEB_DOMAIN")}', 'localhost']
 
-CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("WEB_DOMAIN")}', f'https://www.{os.getenv("WEB_DOMAIN")}', 'http://localhost']
+CSRF_TRUSTED_ORIGINS = [
+    f'https://{os.getenv("WEB_DOMAIN")}',
+    f'https://www.{os.getenv("WEB_DOMAIN")}',
+    'http://localhost',
+    'http://188.121.113.3'
+]
 
 CORS_ORIGIN_ALLOW_ALL = True  # Set Front-end Domain
 
