@@ -12,16 +12,33 @@ User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=32, verbose_name=_('name'))
+    name_en = models.CharField(max_length=32, verbose_name=_('english name'))
+    slug = models.SlugField(max_length=55, verbose_name=_('slug'), unique=True, db_index=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = _('Category')
+        verbose_name_plural = _('Categories')
+
+    def __str__(self):
+        return self.name
+
+    @classmethod
+    def get_choices(cls):
+        return [(category.id, category.slug) for category in cls.objects.all()]
 
 
 class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='questions', verbose_name=_('user'))
+    categories = models.ManyToManyField(Category, related_name='categories')
     subject = models.CharField(max_length=120, verbose_name=_('subject'))
     slug = models.SlugField(db_index=True, verbose_name=_('slug'), allow_unicode=True)
     body = RichTextField(verbose_name=_('body'))
     created = models.DateTimeField(auto_now_add=True, db_index=True)
     modified = models.DateTimeField(auto_now=True)
     views = models.IntegerField(default=0, verbose_name=_('views'))
+    likes = models.IntegerField(default=0, verbose_name=_('likes'))
+    dislikes = models.IntegerField(default=0, verbose_name=_('dislikes'))
     is_active = models.BooleanField(default=False, verbose_name=_('is active'))
 
     default_manager = models.Manager()
@@ -34,17 +51,6 @@ class Question(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.subject[:34]} - views: {self.views}'
-
-
-class CategoryQuestion(models.Model):
-    question = models.ForeignKey(
-        Question, on_delete=models.CASCADE, related_name='questions', verbose_name=_('question'))
-    category = models.ForeignKey(
-        Category, on_delete=models.CASCADE, related_name='categories', verbose_name=_('category'))
-
-    class Meta:
-        verbose_name = _('Category Question')
-        verbose_name_plural = _('Category Questions')
 
 
 class Answer(models.Model):

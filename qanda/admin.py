@@ -1,3 +1,13 @@
 from django.contrib import admin
 
-# Register your models here.
+from qanda.models import Category, Question
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ('name_en',)}
+
+
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    pass
