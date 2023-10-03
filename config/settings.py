@@ -295,3 +295,30 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authenticate.UserEmailAuthBackend',
 ]
+
+
+# Cache
+if DEBUG:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": f"redis://{os.getenv('REDIS_HOST_DEBUG')}:{os.getenv('REDIS_PORT')}/1",
+            'OPTIONS': {
+                'PASSWORD': os.getenv('REDIS_PASSWORD'),
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": f"redis://{os.getenv('REDIS_HOST')}:{os.getenv('REDIS_PORT')}/1",
+            'OPTIONS': {
+                'PASSWORD': os.getenv('REDIS_PASSWORD'),
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            }
+        }
+    }
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'

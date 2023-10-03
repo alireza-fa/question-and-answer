@@ -31,12 +31,17 @@ EMAIL_USE_SSL=True
 DEFAULT_FROM_EMAIL=myproject <myemail@example.com>
 
 RABBITMQ_HOST=rabbit_host
-RABBITMQ_HOST_DEBUG=localhost  # If Test in Docker and DEBUG = True replace with rabbitmq_host
+RABBITMQ_HOST_DEBUG=localhost  # If Test in Docker and DEBUG = True replace with RABBITMQ_HOST
 RABBITMQ_USER=rabbit_user
 RABBITMQ_PASS=rabbit_pass
 RABBITMQ_PORT=5672
 RABBITMQ_PORT_DEBUG=5677
 RABBITMQ_CONNECTION=amqp://rabbit_user:rabbit_pass@rabbit_host:rabbit_port
+
+REDIS_HOST=redis_host
+REDIS_HOST_DEBUG=localhost
+REDIS_PASSWORD=redis_password  # If Test in Docker and DEBUG = True replace with REDIS_HOST
+REDIS_PORT=6381
 ```
 
 Replace the placeholders with actual values. Run `source .env` to load environment variables before running the app.

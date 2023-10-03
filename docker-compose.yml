@@ -33,6 +33,26 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASS}
 
+  redis_qanda:
+    container_name: project_redis_container
+    hostname: ${REDIS_HOST}
+    image: redis:latest
+    networks:
+      - main_network
+    expose:
+      - ${REDIS_PORT}
+    ports:
+      - ${REDIS_PORT}:6379
+    restart: on-failure
+    command: sh -c "redis-server --requirepass ${REDIS_PASSWORD} &&
+                    redis-server /usr/local/etc/redis/redis.conf &&
+                    --port ${REDIS_PORT}"
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+    env_file:
+      - .env
+
   celery_worker:
     build:
       context: .
